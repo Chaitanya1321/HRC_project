@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/app.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="ISO-8859-1">
+    <title>Highradius</title>
+</head>
+
+<body>
+    <img id="ABC_products" src="images/Group 20399.svg" alt="ABC Products">
+    <img id="logo" src="images/logo.svg" alt="logo">
+    <h3 id="heading">Invoice List</h3>
+
+    <div id="container">
+
+        <div id="tool_bar">
+            <button id="predict_btn" class="predict" style="width: 200px;"> PREDICT</button>
+            <button id="btn" class="view" style="width: 200px;"> ANALYTICS VIEW</button>
+            <button id="btn" class="view" style="width: 200px;"> ADVANCE SEARCH</button>
+            <button class="refresh" onclick="location.reload();"><img src="images/refresh.png" alt="refresh" style="width: 30px; height: 30px;"></button>            
+            <form class=search_bar>
+                <input id="search" type="text" placeholder="  Search Customer Id">
+                <button type="submit"><img src="images/search-24px (3).svg"></button>
+            </form>
+
+            <div class="add-box">
+                <button id="add_btn" class="buttons" style="width: 99px;"><img src="images/Path 18189.svg"> Add <a class="add-btn" href="#">
+                </a></button>
+            </div>
+            <div class="edit-box">
+                <button id="edit_btn" class="buttons" class="edit-text" style="width: 102px;" onClick="checkEdit()"> <img src="images/Path 18191.svg"> Edit
+                        <a class="edit-btn" href="#">
+                        </a>
+                </button>
+            </div>
+            
+            <div class="delete-box">
+                <button id="delete_btn" class="buttons" style="width: 124px;" onClick="checkDelete()"><img src="images/Path 18189-1.svg"> Delete
+                    <a class="delete-btn" href="#">
+                    </a> 
+                </button>
+            </div>
+
+         <!--Add Modal-->
+
+    <div class="add-modal-bg">
+        <div class="add-modal">
+
+            <!--Add Modal Header-->
+            <div class="add-modal-header">
+                Add Invoice
+                <img class="add-modal-close" src="images/cross.png" width="20px" height="20px">
+            </div>
+
+            <!--Add Modal Content-->
+            <div class="add-modal-content">
+                <div class="business-code">
+                    <label for="business-code">Business Code</label>
+                    <input type="modal-txt" id="add-business-code" name="code" required>
+                </div>
+                <div class="cust-number">
+                    <label for="cust-number">Customer Number </label>
+                    <input type="modal-txt" id="add-cust-number" name="number" required>
+                </div>
+                <div class="clear-date">
+                    <label for="clear-date">Clear Date</label>
+                    <input type="date" id="add-clear-date" name="date" required>
+                </div>
+                <div class="buisness-year">
+                    <label for="buisness-year">Business Year </label>
+                    <input type="year" id="add-buisness-year" name="year" required>
+                </div>
+                <div class="doc-id">
+                    <label for="doc-id">Doc Id </label>
+                    <input type="modal-txt" id="add-doc-id" name="d-id" required>
+                </div>
+                <div class="posting-date">
+                    <label for="posting-date">Posting Date </label>
+                    <input type="date" id="add-posting-date" name="date" required>
+                </div>
+                <div class="document-create-date">
+                    <label for="document-create-date">Document Create Date </label>
+                    <input type="date" id="add-document_create_date" name="date" required>
+                </div>
+                 <div class="due-in-date">
+                    <label for="due-in-date">Due Date </label>
+                    <input type="date" id="add-due-in-date" name="date" required>
+                </div>
+                <div class="invoice-currency">
+                    <label for="invoice-currency">Invoice Currency </label>
+                    <input type="modal-txt" id="add-invoice-currency" name="currency">
+                </div>
+                <div class="document-type">
+                    <label for="document-type">Document Type </label>
+                    <input type="modal-txt" id="add-document-type" name="doc-type" required>
+                </div>
+                <div class="posting-id">
+                    <label for="posting-id">Posting Id </label>
+                    <input type="modal-txt" id="add-posting-id" name="post-id" required>
+                </div>
+                <div class="total-open-amount">
+                    <label for="total-open-amount">Total Open Amount </label>
+                    <input type="modal-txt" id="add-total_open_amount" name="open-amount" required>
+                </div>
+                <div class="baseline-create-date">
+                    <label for="baseline-create-date">Baseline Create Date </label>
+                    <input type="modal-txt" id="add-baseline-create-date" name="date" required>
+                </div>
+                <div class="cust-payment-terms">
+                    <label for="cust-payment-terms">Customer Payment Terms </label>
+                    <input type="modal-txt" id="add-cust-payment-terms" name="payment-terms" required>
+                </div>
+                <div class="invoice-id">
+                    <label for="invoice-id">Invoice Id </label>
+                    <input type="modal-txt" id="add-invoice-id" name="i-id" required>
+                </div>
+            </div>
+
+            <!--Add Modal Footer-->
+            <div class="add-modal-footer">
+                <button class="modal-add-btn" onclick="addInvoice()">
+                    <a href="#">Add</a>
+                </button>
+                <button class="modal-clear-btn" onclick="clearAddModal()">
+                    <a href="#">Clear</a>
+                </button>
+                <button class="modal-cancel-btn">
+                    <a href="#">Cancel</a>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!--Delete Modal-->
+    <div class="delete-modal-bg">
+        <div class="delete-modal">
+
+            <!--Delete Modal Header-->
+            <div class="delete-modal-header">
+                Delete Record(s)?
+                <img class="delete-modal-close" src="images/cross.png" height="20px">
+            </div>
+
+            <!--Delete Modal Content-->
+            <div class="delete-modal-content">
+                You'll lose your record(s) after this action. We can't recover
+                them once you delete.<br><br>
+                Are you sure you want to <text>permanently delete</text> them?
+            </div>
+
+
+            <!--Delete Modal Footer-->
+            <div class="delete-modal-footer">
+                <button class="modal-delete-btn" onClick="deleteInvoice()" >
+                    <a href="#">Delete</a>
+                </button>
+                <button class="delete-cancel-btn" onClick="cancelDelete()">
+                    <a href="#">Cancel</a>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!--Edit Modal-->
+    <div class="edit-modal-bg">
+        <div class="edit-modal">
+
+            <!--Edit Modal Header-->
+            <div class="edit-modal-header">
+                Edit Invoice
+                <img class="edit-modal-close" src="images/cross.png" height="20px">
+            </div>
+
+            <!--Edit Modal Content-->
+            <div class="edit-modal-content">
+                <div class="invoice-currency">
+                    <label for="invoice-currency">Invoice Currency </label>
+                    <input type="modal-txt" id="edit-invoice-currency" name="currency">
+                </div>
+                <div class="cust-payment-terms">
+                    <label for="cust-payment-terms">Customer Payment Terms </label>
+                    <input type="modal-txt" id="edit-cust-payment-terms" name="cust_payment_terms">
+                </div>
+                <div class="sl-no">
+                    <label for="sl-no">Sl no </label>
+                    <input type="number" id="sl-no" name="s-no">
+                </div>
+            </div>
+
+
+            <!--Edit Modal Footer-->
+            <div class="edit-modal-footer">
+
+                <button class="modal-edit-btn" onClick="editInvoice()">
+                    <a href="#">Save</a>
+                </button>
+                <button class="modal-reset-btn" onClick="resetEditModal()">
+                    <a href="#">Reset</a>
+                </button>
+                
+                <button class="edit-cancel-btn">
+                    <a href="#">Cancel</a>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+        <table id="invoices">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" class="check_box">
+                    </th>
+                    <th>Sl no</th>
+                    <th>Business Code</th>
+                    <th>Customer Number</th>
+                    <th>Customer Name</th>
+                    <th>Clear Date</th>
+                    <th>Buisness Year</th>
+                    <th>Document Id</th>
+                    <th>Posting Date</th>
+                    <th>Document Create Date</th>
+                    <th>Document Create Date 1</th>
+                    <th>Due Date</th>
+                    <th>Invoice Currency</th>
+                    <th>Document Type</th>
+                    <th>Posting Id</th>
+                    <th>Area Business</th>
+                    <th>Total Open Amount</th>
+                    <th>Baseline Create Date</th>
+                    <th>Customer Payment Terms</th>
+                    <th>Invoice Id</th>
+                    <th>IsOpen</th>
+                </tr>
+            </thead>
+        </table>
+        <a onclick="getPreviousSet()" class="previous round">&#8249;</a>
+        <a onclick="getNextSet()" class="next round">&#8250;</a>
+
+        <footer>
+            <p>Privacy Policy | © 2022 HighRadius Corporation. All rights reserved.</p>
+          </footer>
+          
+    </div>
+      
+<script src="js/app.js"></script>
+
+</body>
+</html>
